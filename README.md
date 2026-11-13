@@ -1,42 +1,63 @@
-# Scoop Bucket Template
+<p align="center">
+  <img src="assets/logo.svg" alt="xorbet logo" width="128">
+</p>
 
-<!-- Uncomment the following line after replacing placeholders -->
-<!-- [![Tests](https://github.com/<username>/<bucketname>/actions/workflows/ci.yml/badge.svg)](https://github.com/<username>/<bucketname>/actions/workflows/ci.yml) [![Excavator](https://github.com/<username>/<bucketname>/actions/workflows/excavator.yml/badge.svg)](https://github.com/<username>/<bucketname>/actions/workflows/excavator.yml) -->
+<h1 align="center">xorbet</h1>
 
-Template bucket for [Scoop](https://scoop.sh), the Windows command-line installer.
+<p align="center">🍧 A personal <a href="https://scoop.sh">Scoop</a> bucket. Fresh flavours, auto-updated.</p>
 
-## How do I use this template?
+<p align="center">
+  <a href="https://github.com/ADxorNew/xorbet/actions/workflows/ci.yml"><img src="https://github.com/ADxorNew/xorbet/actions/workflows/ci.yml/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/ADxorNew/xorbet/actions/workflows/excavator.yml"><img src="https://github.com/ADxorNew/xorbet/actions/workflows/excavator.yml/badge.svg" alt="Excavator"></a>
+</p>
 
-1. Generate your own copy of this repository with the "Use this template"
-   button.
-2. Allow all GitHub Actions:
-   - Navigate to `Settings` - `Actions` - `General` - `Actions permissions`.
-   - Select `Allow all actions and reusable workflows`.
-   - Then `Save`.
-3. Workflow permissions:
-   - Navigate to `Settings` - `Actions` - `General` - `Workflow permissions`.
-   - Ensure `Read repository contents and packages permissions` is selected.
-   - Then `Save`.
-4. Document the bucket in `README.md`.
-5. Replace the placeholder repository string in `bin/auto-pr.ps1`.
-6. Create new manifests by copying `bucket/app-name.json.template` to
-   `bucket/<app-name>.json`.
-7. Commit and push changes.
-8. If you'd like your bucket to be indexed on `https://scoop.sh`, add the
-   topic `scoop-bucket` to your repository.
-
-## How do I install these manifests?
-
-After manifests have been committed and pushed, run the following:
+## Usage
 
 ```pwsh
-scoop bucket add <bucketname> https://github.com/<username>/<bucketname>
-scoop install <bucketname>/<manifestname>
+scoop bucket add xorbet https://github.com/ADxorNew/xorbet
+scoop install xorbet/<app>
 ```
 
-## How do I contribute new manifests?
+Always use the `xorbet/` prefix. Some apps here also exist, with different
+manifests, in other buckets.
 
-To make a new manifest contribution, please read the [Contributing
-Guide](https://github.com/ScoopInstaller/.github/blob/main/.github/CONTRIBUTING.md)
-and [App Manifests](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests)
-wiki page.
+## Flavours
+
+| App | Description |
+| --- | --- |
+| [lazykeifu](https://github.com/watabegg/lazykeifu) | Graph-first Git TUI with lazygit-inspired workflows (`lzkf`) |
+
+## How updates work
+
+The [Excavator](.github/workflows/excavator.yml) workflow runs every 4 hours.
+It reads the `checkver` block of each manifest, and when it finds a new
+version it rewrites the manifest from its `autoupdate` block and commits it.
+
+On your machine, `scoop update` pulls the bucket. `scoop status` then lists
+the outdated apps, and `scoop update *` (or `scoop update <app>`) installs
+them. Use `scoop hold <app>` to keep an app on its current version.
+
+## Adding a flavour
+
+1. Copy `bucket/app-name.json.template` to `bucket/<app>.json` and fill it in.
+   Include `checkver` and `autoupdate`, so that Excavator can update it.
+2. Check the manifest:
+
+   ```pwsh
+   .\bin\checkver.ps1 <app>      # shows the latest version upstream
+   .\bin\checkurls.ps1 <app>     # the download URLs respond
+   .\bin\checkhashes.ps1 <app>   # the hashes match the downloads
+   .\bin\formatjson.ps1          # formats all manifests
+   ```
+
+3. Commit and push. The [CI](.github/workflows/ci.yml) workflow runs the
+   Scoop manifest tests.
+
+See the [App Manifests](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests)
+and [App Manifest Autoupdate](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifest-Autoupdate)
+wiki pages for the manifest format.
+
+## License
+
+The bucket files are released into the public domain ([Unlicense](LICENSE)).
+Each app keeps its own license, shown in its manifest.

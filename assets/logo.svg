@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="xorbet logo">
+  <title>xorbet</title>
+  <defs>
+    <pattern id="waffle" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <path d="M0 5 H10 M5 0 V10" stroke="#A86B2D" stroke-width="2" opacity="0.7"/>
+    </pattern>
+  </defs>
+  <!-- waffle cone -->
+  <path d="M34 64 L94 64 L64 124 Z" fill="#E8B06A" stroke="#A86B2D" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M34 64 L94 64 L64 124 Z" fill="url(#waffle)"/>
+  <!-- sorbet scoop with drips -->
+  <path d="M30 58 C30 34 45 16 64 16 C83 16 98 34 98 58 C98 64 94 67 90 65 C86 63 85 71 80 71 C75 71 75 64 70 65 C66 66 67 77 61 77 C55 77 57 66 52 66 C47 66 47 72 42 71 C37 70 38 63 34 64 C31 65 30 61 30 58 Z" fill="#EC5B8C" stroke="#B83266" stroke-width="3" stroke-linejoin="round"/>
+  <ellipse cx="47" cy="31" rx="7" ry="4.5" transform="rotate(-35 47 31)" fill="#FFFFFF" opacity="0.45"/>
+  <!-- XOR symbol -->
+  <circle cx="64" cy="44" r="12" fill="none" stroke="#7A1840" stroke-width="3.5"/>
+  <path d="M64 32 V56 M52 44 H76" stroke="#7A1840" stroke-width="3.5"/>
+</svg>
